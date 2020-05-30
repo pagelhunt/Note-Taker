@@ -8,22 +8,22 @@ var idNumber = 1;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('./public'));
+app.use(express.static('./Develop/public'));
 
 // routes
 app.get("/", function(req, res)
 {
-    res.sendFile(path.join(__dirname, "./public/index.html"));
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
 
 app.get("/notes", function(req, res)
 {
-    res.sendFile(path.join(__dirname, "./public/notes.html"));
+    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
 });
 
 app.get("/api/notes", function(req, res)
 {
-    fs.readFile("./db/db.json", function (err, data) 
+    fs.readFile("./Develop/db/db.json", function (err, data) 
     {
         if (err) throw err;
         console.log("App.get: read file");
@@ -35,7 +35,7 @@ app.get("/api/notes", function(req, res)
 app.post("/api/notes", function(req, res)
 {
     console.log(req);
-    fs.readFile("./db/db.json", function (err, data) 
+    fs.readFile("./Develop/db/db.json", function (err, data) 
     {
         if (err) throw err;
 
@@ -49,7 +49,7 @@ app.post("/api/notes", function(req, res)
         updatedNotes.push(newNote);
         idNumber++;
         
-        fs.writeFile("./db/db.json", JSON.stringify(updatedNotes), function (err, data)
+        fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedNotes), function (err, data)
         {
             if (err) throw err;
             console.log("App.post: note saved.");
@@ -64,7 +64,7 @@ app.delete("/api/notes/:id", function(req, res)
 {
     console.log(req.params.id);
 
-    fs.readFile("./db/db.json", function (err, data) 
+    fs.readFile("./Develop/db/db.json", function (err, data) 
     {
         if (err) throw err;
         console.log("App.delete: read file");
@@ -75,7 +75,7 @@ app.delete("/api/notes/:id", function(req, res)
 
         console.log(updatedNotes2);
     
-        fs.writeFile("./db/db.json", JSON.stringify(updatedNotes2), function (err)
+        fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedNotes2), function (err)
         {
             if (err) throw err;
 
